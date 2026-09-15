@@ -1,0 +1,30 @@
+@use '@styles/tools/tools' as *;
+
+:root {
+  --root-bg-color: #fef5e1;
+
+  // Font size
+  --fsize-xl: clamp(#{rem(18)}, 4vw, #{rem(24)});
+  --fsize-l: clamp(#{rem(16)}, 4vw, #{rem(18)});
+  --fsize-m: clamp(#{rem(14)}, 4vw, #{rem(16)});
+  --fsize-s: clamp(#{rem(12)}, 4vw, #{rem(14)});
+
+  // Font weights
+  --fweight-regular: 400;
+  --fweight-medium: 500;
+  --fweight-semibold: 600;
+  --fweight-bold: 700;
+
+  // Borders
+  --border-radius-xl: clamp(#{rem(15)}, 4vw, #{rem(30)});
+  --border-radius-l: clamp(#{rem(12)}, 4vw, #{rem(20)});
+  --border-radius-full: 50%;
+
+  // Gaps, Paddings, Margins
+  --paddings-size-l: clamp(#{rem(12)}, 4vw, #{rem(20)});
+
+  // Colors
+  --primary-color: #1c1c1c;
+  --primary-ghost-color: rgba(28, 28, 28, 0.4);
+  --secondary-color: #fcfcfc;
+}
