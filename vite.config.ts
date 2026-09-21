@@ -37,6 +37,7 @@ export default defineConfig({
       '@components': fileURLToPath(new URL('./src/components', import.meta.url)),
       '@lib': fileURLToPath(new URL('./src/lib', import.meta.url)),
       '@utils': fileURLToPath(new URL('./src/utils', import.meta.url)),
+      '@interfaces': fileURLToPath(new URL('./src/interfaces', import.meta.url)),
     },
   },
 });

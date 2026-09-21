@@ -22,9 +22,14 @@
 
   // Gaps, Paddings, Margins
   --paddings-size-l: clamp(#{rem(12)}, 4vw, #{rem(20)});
+  --container-margins: clamp(#{rem(11)}, 4vw, #{rem(22)});
 
   // Colors
   --primary-color: #1c1c1c;
   --primary-ghost-color: rgba(28, 28, 28, 0.4);
   --secondary-color: #fcfcfc;
+
+  // Shadow
+  --bshadow-color: rgba(245, 245, 247, 0.1);
+  --bshadow-rules: 0 #{rem(10)} #{rem(10)} var(--bshadow-color);
 }

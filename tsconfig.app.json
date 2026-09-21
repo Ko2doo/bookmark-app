@@ -13,7 +13,8 @@
       "@styles": ["./src/assets/styles/*"],
       "@components": ["./src/components/*"],
       "@lib": ["./src/lib/*"],
-      "@utils": ["./src/utils/*"]
+      "@utils": ["./src/utils/*"],
+      "@interfaces": ["./src/interfaces/*"]
     },
 
     // `vue-tsc --build` produces a .tsbuildinfo file for incremental type-checking.

@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 @use './tools' as *;
 
 // Для корректной работы hover в мобилках
@@ -14,6 +16,32 @@
   @media (focus: $value) {
     & {
       @content;
+    }
+  }
+}
+
+$GRID_COLUMN: 12;
+@mixin make-size($size: false) {
+  & {
+    $value: math.div(100%, $GRID_COLUMN) * $size;
+    flex: 0 0 auto;
+    flex-basis: $value;
+    width: $value;
+  }
+}
+
+@mixin app-container() {
+  & {
+    max-width: rem(1442);
+
+    margin-left: var(--container-margins);
+    margin-right: var(--container-margins);
+
+    box-sizing: border-box;
+
+    @media (min-width: rem(1200)) {
+      margin-left: auto;
+      margin-right: auto;
     }
   }
 }
