@@ -1,19 +1,13 @@
 <script lang="ts" setup>
-  const {
-    width = '2rem',
-    height = '2rem',
-    color = 'var(--secondary-color)',
-  } = defineProps({
-    width: String,
-    height: String,
-    color: String,
-  });
+  import type { IconProps } from '@/interfaces/icons';
+
+  const { size = '2rem', color = 'var(--secondary-color)' } = defineProps<IconProps>();
 </script>
 
 <template>
   <svg
-    :width="width"
-    :height="height"
+    :width="size"
+    :height="size"
     viewBox="0 0 24 24"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"

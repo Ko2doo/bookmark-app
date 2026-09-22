@@ -1,19 +1,13 @@
 <script lang="ts" setup>
-  const {
-    width = '2rem',
-    height = '2rem',
-    color = 'var(--secondary-color)',
-  } = defineProps({
-    width: String,
-    height: String,
-    color: String,
-  });
+  import type { IconProps } from '@/interfaces/icons';
+
+  const { size = '2rem', color = 'var(--secondary-color)' } = defineProps<IconProps>();
 </script>
 
 <template>
   <svg
-    :width="width"
-    :height="height"
+    :width="size"
+    :height="size"
     viewBox="0 0 12 12"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
@@ -27,7 +21,7 @@
     </g>
     <defs>
       <clipPath id="clip0_7_162">
-        <rect :width="width" :height="height" :fill="color" />
+        <rect :width="size" :height="size" :fill="color" />
       </clipPath>
     </defs>
   </svg>

@@ -1,4 +1,8 @@
 <script lang="ts" setup>
+  import ButtonDefault from '@/libs/components/ButtonDefault.vue';
+  import IconLink from '@/libs/icons/IconLink.vue';
+  import IconRemove from '@/libs/icons/IconRemove.vue';
+
   type BookmarkCardProps = {
     preview: string;
     description: string;
@@ -17,7 +21,15 @@
       </figcaption>
     </figure>
 
-    <div class="interactive-zone">кнопки</div>
+    <div class="interactive-zone">
+      <ButtonDefault :name-attr="'remove'">
+        <IconRemove size="24px" />
+      </ButtonDefault>
+
+      <ButtonDefault :name-attr="'share'">
+        <IconLink size="24px" />
+      </ButtonDefault>
+    </div>
   </article>
 </template>
 
