@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-  import type { IconProps } from '@/interfaces/icons';
+  import type { IconProps } from '@/types/icons';
 
   const { size = '2rem', color = 'var(--secondary-color)' } = defineProps<IconProps>();
 </script>

@@ -2,7 +2,7 @@
   import { onMounted, ref } from 'vue';
 
   import ProfileAvatar from '@/components/ProfileAvatar.vue';
-  import type { Profile } from '@/interfaces/profile.ts';
+  import type { Profile } from '@/types/profile.ts';
 
   import { API_ROUTES } from './api.ts';
 
