@@ -1,12 +1,20 @@
 <script lang="ts" setup>
-  const { name } = defineProps<{ name: string }>();
+  import { onMounted } from 'vue';
+
+  import { useProfileStore } from '@/stores/profile.store';
+
+  const store = useProfileStore();
+
+  onMounted(async () => {
+    await store.fetchProfile();
+  });
 </script>
 
 <template>
-  <div class="profile">
+  <div class="profile" v-if="store.profile">
     <img src="@assets/user-avatar.png" alt="User avatar" class="user-ava" />
     <h1 class="username">
-      Привет, <strong>{{ name }}</strong>
+      Привет, <strong>{{ store.profile.name }}</strong>
     </h1>
   </div>
 </template>

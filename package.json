@@ -19,6 +19,8 @@
     "not dead"
   ],
   "dependencies": {
+    "axios": "^1.20.0",
+    "pinia": "^4.0.3",
     "vue": "^3.5.40"
   },
   "devDependencies": {

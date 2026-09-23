@@ -1,36 +1,14 @@
 <script setup lang="ts">
-  import { onMounted, ref } from 'vue';
-
   import ProfileAvatar from '@/components/ProfileAvatar.vue';
-  import type { Profile } from '@/types/profile.ts';
 
-  import { API_ROUTES } from './api.ts';
-
-  const profile = ref<Profile>();
-
-  async function fetchProfile(): Promise<void> {
-    const data = await fetch(API_ROUTES.profile);
-    const res = (await data.json()) as Profile;
-
-    profile.value = res;
-  }
-
-  onMounted(async () => {
-    await fetchProfile();
-  });
+  import NavigationList from './components/NavigationList.vue';
 </script>
 
 <template>
   <div class="app-wrapper">
     <aside class="navigation-menu">
-      <ProfileAvatar v-if="profile" :name="profile.name" />
-      <nav class="navigation">
-        <ul class="navigation-list">
-          <li class="navigation-list-item">
-            <a href="#" class="navigation-link">Спорт</a>
-          </li>
-        </ul>
-      </nav>
+      <ProfileAvatar />
+      <NavigationList />
     </aside>
 
     <main class="main-content">Контент</main>
