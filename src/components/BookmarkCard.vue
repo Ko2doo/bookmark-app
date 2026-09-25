@@ -22,11 +22,11 @@
     </figure>
 
     <div class="interactive-zone">
-      <ButtonDefault :name-attr="'remove'">
+      <ButtonDefault :name-attr="'remove'" :title="'Удалить'">
         <IconRemove size="24px" />
       </ButtonDefault>
 
-      <ButtonDefault :name-attr="'share'">
+      <ButtonDefault :name-attr="'share'" :title="'Поделиться'">
         <IconLink size="24px" />
       </ButtonDefault>
     </div>

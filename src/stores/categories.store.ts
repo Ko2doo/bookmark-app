@@ -8,7 +8,7 @@ import type { Category } from '@/types/category';
 export const useCategoryStore = defineStore('categories', () => {
   const categories = ref<Category[]>([]);
 
-  async function fetchCategories(): Promise<void> {
+  async function fetchCategories() {
     try {
       const { data, status } = await http.get<Category[]>(API_ROUTES.categories);
 
@@ -26,5 +26,21 @@ export const useCategoryStore = defineStore('categories', () => {
     }
   }
 
-  return { categories, fetchCategories };
+  async function createCategory() {
+    try {
+      const { data } = await http.post<Category>(API_ROUTES.categories, {
+        name: 'Новая категория',
+        alias: 'new',
+      });
+
+      categories.value.push(data);
+    } catch (err) {
+      if (err instanceof Error) {
+        console.error('Ошибка получения категорий:', err);
+        alert(`Ошибка получения категорий: ${err.message}`);
+      }
+    }
+  }
+
+  return { categories, fetchCategories, createCategory };
 });

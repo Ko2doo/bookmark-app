@@ -2,13 +2,14 @@
   type ButtonProps = {
     onlyIcon?: boolean;
     nameAttr: string | undefined;
+    title: string;
   };
 
   const { onlyIcon = true } = defineProps<ButtonProps>();
 </script>
 
 <template>
-  <button class="button" :data-onlyicon="onlyIcon" :name="nameAttr">
+  <button class="button" :data-onlyicon="onlyIcon" :name="nameAttr" :title="title">
     <slot></slot>
   </button>
 </template>
@@ -36,6 +37,7 @@
 
     padding: var(--btn-padding);
 
+    border: none;
     border-radius: rem(40);
     background: var(--default-bg-color);
     color: var(--default-txt-color);

@@ -45,3 +45,20 @@ $GRID_COLUMN: 12;
     }
   }
 }
+
+///
+/// Generates flexible fluid widths for grid elements with fixed pixel gaps.
+/// @param {Number} $spaces - The total number of gaps/gaps-offsets in a single row (usually columns - 1).
+/// @param {Number} $size   - The total number of columns/cards in a single row.
+/// @example
+///  For a 3-column row with 2 gaps between them:
+///   @include size(2, 3);
+@mixin size($spaces, $size) {
+  & {
+    width: calc((100% - var(--cards-offset) * #{$spaces}) / #{$size});
+  }
+
+  &:not(:first-child) {
+    margin-left: var(--cards-offset);
+  }
+}

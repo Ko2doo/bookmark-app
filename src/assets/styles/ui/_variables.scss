@@ -4,6 +4,7 @@
   --root-bg-color: #fef5e1;
 
   // Font size
+  --fsize-xxl: clamp(#{rem(38)}, 4vw, #{rem(52)});
   --fsize-xl: clamp(#{rem(18)}, 4vw, #{rem(24)});
   --fsize-l: clamp(#{rem(16)}, 4vw, #{rem(18)});
   --fsize-m: clamp(#{rem(14)}, 4vw, #{rem(16)});
@@ -23,6 +24,8 @@
   // Gaps, Paddings, Margins
   --paddings-size-l: clamp(#{rem(12)}, 4vw, #{rem(20)});
   --container-margins: clamp(#{rem(11)}, 4vw, #{rem(22)});
+  --cards-offset: #{rem(36)};
+  --cards-offset-one-side: #{rem(18)};
 
   // Colors
   --primary-color: #1c1c1c;
