@@ -5,8 +5,6 @@
 <template>
   <div class="main-bookmarks">
     <BookmarkCard class="bookmark" />
-    <BookmarkCard class="bookmark" />
-    <BookmarkCard class="bookmark" />
   </div>
 </template>
 

@@ -1,0 +1,47 @@
+import { ref } from 'vue';
+
+import { defineStore } from 'pinia';
+import { v4 as uuidv4 } from 'uuid';
+
+import { API_ROUTES, http } from '@/api';
+import type { Bookmark } from '@/types/bookmark';
+
+export const useBookmarkStore = defineStore('bookmarks', () => {
+  const bookmarks = ref<Bookmark[]>([]);
+
+  async function fetchBookmarks(categoryId: number) {
+    try {
+      const { data, status } = await http.get<Bookmark[]>(API_ROUTES.bookmarks(categoryId));
+
+      if (status !== 200) {
+        bookmarks.value = [];
+        return;
+      }
+
+      bookmarks.value = data;
+    } catch (err) {
+      if (err instanceof Error) {
+        console.error('Ошибка получения закладок:', err);
+        alert(`Ошибка получения закладок: ${err.message}`);
+      }
+    }
+  }
+
+  async function createBookmarks() {
+    try {
+      const { data } = await http.post<Bookmark>(API_ROUTES.bookmarks, {
+        name: 'Нова',
+        alias: uuidv4(),
+      });
+
+      bookmarks.value.push(data);
+    } catch (err) {
+      if (err instanceof Error) {
+        console.error('Ошибка получения закладок:', err);
+        alert(`Ошибка получения закладок: ${err.message}`);
+      }
+    }
+  }
+
+  return { bookmarks, fetchBookmarks, createBookmarks };
+});
