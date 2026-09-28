@@ -16,7 +16,12 @@
   <nav class="navigation" v-if="store.categories">
     <ul class="navigation-list">
       <li class="navigation-list-item" v-for="cat in store.categories" :key="cat.id">
-        <RouterLink :to="`/main/${cat.alias}`" class="navigation-link">{{ cat.name }}</RouterLink>
+        <RouterLink
+          exact-active-class="active-link"
+          :to="`/main/${cat.alias}`"
+          class="navigation-link"
+          >{{ cat.name }}</RouterLink
+        >
       </li>
       <li class="navigation-list-item">
         <ButtonDefault
@@ -34,4 +39,33 @@
 <style lang="scss" scoped>
   @use '@styles/tools/tools' as *;
   @use '@styles/tools/mixins' as *;
+
+  .navigation {
+    margin-top: clamp(#{rem(20)}, 4vw, #{rem(40)});
+  }
+
+  .navigation-list {
+    display: flex;
+    flex-direction: column;
+
+    gap: clamp(#{rem(18)}, 4vw, #{rem(34)});
+  }
+
+  .navigation-link {
+    font-size: var(--fsize-s);
+    font-weight: var(--fweight-regular);
+    line-height: normal;
+
+    display: block;
+    color: var(--primary-color);
+
+    transition:
+      0.2s color,
+      ease-in-out;
+
+    &.active-link {
+      color: var(--primary-hover-color);
+      font-weight: var(--fweight-medium);
+    }
+  }
 </style>
