@@ -1,12 +1,17 @@
 <script lang="ts" setup>
   import { onMounted } from 'vue';
 
+  import { useRouter } from 'vue-router';
+
   import ButtonDefault from '@/libs/components/ButtonDefault.vue';
   import IconAdd from '@/libs/icons/IconAdd.vue';
+  import { useAuthStore } from '@/stores/auth.store';
   import { useCategoryStore } from '@/stores/categories.store';
   import { useNotificationsStore } from '@/stores/notifications.store';
 
   const store = useCategoryStore();
+  const authStore = useAuthStore();
+  const router = useRouter();
   const notification = useNotificationsStore();
 
   onMounted(async () => {
@@ -18,6 +23,11 @@
       }
     }
   });
+
+  async function logout() {
+    authStore.clearToken();
+    await router.push({ name: 'auth' });
+  }
 </script>
 
 <template>
@@ -38,6 +48,16 @@
           @click="store.createCategory"
         >
           <IconAdd size="22px" />
+        </ButtonDefault>
+      </li>
+      <li class="navigation-list-item">
+        <ButtonDefault
+          :only-icon="false"
+          :name-attr="'logout-user'"
+          :title="'Выйти из системы'"
+          @click="logout"
+        >
+          <span>Выйти</span>
         </ButtonDefault>
       </li>
     </ul>

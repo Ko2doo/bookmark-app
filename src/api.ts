@@ -1,5 +1,7 @@
 import axios, { AxiosError } from 'axios';
 
+export const AUTH_TOKEN_STORE_KEY = 'auth-token-store';
+
 export const API_ROUTES = {
   profile: `profile`,
   categories: `categories`,

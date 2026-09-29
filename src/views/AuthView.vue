@@ -1,5 +1,7 @@
 <script lang="ts" setup>
-  import { ref } from 'vue';
+  import { ref, watch } from 'vue';
+
+  import { useRouter } from 'vue-router';
 
   import ButtonDefault from '@/libs/components/ButtonDefault.vue';
   import InputDefault from '@/libs/components/InputDefault.vue';
@@ -14,6 +16,16 @@
   // Stores
   const authStore = useAuthStore();
   const notifications = useNotificationsStore();
+  const router = useRouter();
+
+  watch(
+    () => authStore.getToken,
+    async () => {
+      if (authStore.getToken) {
+        await router.push({ name: 'main' });
+      }
+    },
+  );
 
   async function onSubmit(event: Event) {
     event.preventDefault();
@@ -26,6 +38,8 @@
         email: authForm.value.email,
         password: authForm.value.password,
       });
+
+      authForm.value = {};
     } catch (error) {
       if (error instanceof Error) {
         notifications.push(error.message);
@@ -40,7 +54,7 @@
 
     <form class="auth-form" aria-label="Авторизация" @submit="onSubmit">
       <p v-if="formError" class="error">
-        <code>{{ formError }}</code>
+        {{ formError }}
       </p>
 
       <InputDefault
@@ -76,8 +90,6 @@
       >
         <span>Вход</span>
       </ButtonDefault>
-
-      {{ authStore.token }}
     </form>
   </div>
 </template>
@@ -95,7 +107,7 @@
 
     gap: rem(52);
 
-    height: 100dvh;
+    height: 100%;
   }
 
   .title {

@@ -6,7 +6,7 @@
   const router = useRouter();
 
   const redirectToMain = () => {
-    return router.push('/');
+    return router.push({ name: 'main' });
   };
 </script>
 

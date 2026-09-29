@@ -30,14 +30,15 @@
   .notifications {
     position: absolute;
     top: rem(22);
-    right: rem(22);
 
-    width: calc(100% / 3);
+    width: 90%;
     max-height: rem(220);
     height: auto;
 
     display: flex;
     flex-direction: column;
+
+    justify-self: center;
 
     gap: rem(20);
     padding: rem(12) rem(22);
@@ -46,7 +47,7 @@
     scrollbar-width: none;
     -ms-overflow-style: none;
 
-    background-color: var(--primary-ghost-color);
+    background-color: var(--primary-notify-color);
     color: var(--secondary-color);
 
     border: rem(4) solid var(--primary-color);
@@ -55,14 +56,35 @@
     &::-webkit-scrollbar {
       display: none;
     }
+
+    @media (min-width: rem(420)) {
+      width: 80%;
+    }
+
+    @media (min-width: rem(640)) {
+      width: calc(100% / 2);
+      justify-self: flex-end;
+      right: rem(22);
+    }
+
+    @media (min-width: rem(760)) {
+      width: 50%;
+    }
+
+    @media (min-width: rem(920)) {
+      width: 46.4444%;
+    }
+
+    @media (min-width: rem(1200)) {
+      width: calc(100% / 4);
+    }
   }
 
   .notification {
     display: flex;
-    flex-wrap: wrap;
-    align-self: flex-start;
+    flex-direction: column;
 
-    font-size: var(--fsize-m);
+    font-size: var(--fsize-l);
     font-weight: var(--fweight-medium);
     line-height: normal;
 
@@ -76,8 +98,12 @@
   }
 
   .btn-close {
-    flex: 1 1 1;
+    --btn-padding: #{rem(6)} #{rem(18)};
+
+    font-size: var(--fsize-m);
+
+    flex: 0 1 auto;
     margin-left: auto;
-    margin-top: rem(22);
+    margin-top: rem(10);
   }
 </style>
