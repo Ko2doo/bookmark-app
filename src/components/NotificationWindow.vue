@@ -33,22 +33,28 @@
     right: rem(22);
 
     width: calc(100% / 3);
-    max-height: rem(260);
+    max-height: rem(220);
     height: auto;
 
     display: flex;
     flex-direction: column;
 
-    gap: rem(22);
+    gap: rem(20);
     padding: rem(12) rem(22);
 
     overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 
     background-color: var(--primary-ghost-color);
     color: var(--secondary-color);
 
     border: rem(4) solid var(--primary-color);
     border-radius: var(--border-radius-l);
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 
   .notification {
@@ -64,7 +70,7 @@
       border-bottom: rem(2) solid var(--primary-color);
 
       &:not(:last-child) {
-        margin-bottom: rem(20);
+        padding-bottom: rem(20);
       }
     }
   }
