@@ -14,6 +14,7 @@ export const API_ROUTES = {
 export const http = axios.create({
   baseURL: 'http://localhost:3000/api/',
   timeout: 10000,
+  validateStatus: () => true,
 });
 
 http.interceptors.response.use(
