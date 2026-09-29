@@ -15,15 +15,18 @@ export const useCategoryStore = defineStore('categories', () => {
 
       if (status !== 200) {
         categories.value = [];
-        return;
+        throw new Error(`Не удалось получить категории (статус ${status})`);
       }
 
       categories.value = data;
     } catch (err) {
+      categories.value = [];
+
       if (err instanceof Error) {
         console.error('Ошибка получения категорий:', err);
-        alert(`Ошибка получения категорий: ${err.message}`);
       }
+
+      throw err;
     }
   }
 
@@ -38,8 +41,9 @@ export const useCategoryStore = defineStore('categories', () => {
     } catch (err) {
       if (err instanceof Error) {
         console.error('Ошибка получения категорий:', err);
-        alert(`Ошибка получения категорий: ${err.message}`);
       }
+
+      throw err;
     }
   }
 

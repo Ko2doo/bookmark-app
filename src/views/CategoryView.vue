@@ -5,11 +5,13 @@
 
   import { useBookmarkStore } from '@/stores/bookmark.store';
   import { useCategoryStore } from '@/stores/categories.store';
+  import { useNotificationsStore } from '@/stores/notifications.store';
   import type { Category } from '@/types/category';
 
   const route = useRoute();
   const categoryStore = useCategoryStore();
   const bookmarkStore = useBookmarkStore();
+  const notification = useNotificationsStore();
   const category = ref<Category>();
 
   watch(
@@ -20,15 +22,21 @@
     async (data) => {
       category.value = categoryStore.getCategoryByAlias(data.alias);
 
-      if (category.value) {
+      if (!category.value) {
+        notification.push('Категория не найдена');
+        return;
+      }
+
+      try {
         await bookmarkStore.fetchBookmarks(category.value.id);
+      } catch (error) {
+        if (error instanceof Error) {
+          notification.push(error.message);
+        }
       }
     },
+    { immediate: true },
   );
-
-  // onBeforeRouteUpdate((to) => {
-  //   category.value = categoryStore.getCategoryByAlias(to.params.alias);
-  // });
 </script>
 
 <template>

@@ -35,6 +35,12 @@
   // Hover
   --primary-hover-color: #17345a;
 
+  // Outline color
+  --outline-primary-color: #76b5da;
+
+  // Statuses
+  --error-color: #f74526;
+
   // Shadow
   --bshadow-color: rgba(245, 245, 247, 0.1);
   --bshadow-rules: 0 #{rem(10)} #{rem(10)} var(--bshadow-color);

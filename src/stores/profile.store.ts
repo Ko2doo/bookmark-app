@@ -16,15 +16,18 @@ export const useProfileStore = defineStore('profile', () => {
 
       if (status !== 200) {
         profile.value = null;
-        return;
+        throw new Error(`Не удалось получить профиль (статус ${status})`);
       }
 
       profile.value = data;
     } catch (err) {
+      profile.value = null;
+
       if (err instanceof Error) {
         console.error('Ошибка получения данных:', err);
-        alert(`Ошибка получения данных: ${err.message}`);
       }
+
+      throw err;
     }
   }
 

@@ -1,7 +1,10 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+  import NotificationWindow from '@components/NotificationWindow.vue';
+</script>
 
 <template>
   <RouterView />
+  <NotificationWindow />
 </template>
 
 <style lang="scss" scoped>

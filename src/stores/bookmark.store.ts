@@ -15,21 +15,24 @@ export const useBookmarkStore = defineStore('bookmarks', () => {
 
       if (status !== 200) {
         bookmarks.value = [];
-        return;
+        throw new Error(`Не удалось получить закладки (статус ${status})`);
       }
 
       bookmarks.value = data;
     } catch (err) {
+      bookmarks.value = [];
+
       if (err instanceof Error) {
         console.error('Ошибка получения закладок:', err);
-        alert(`Ошибка получения закладок: ${err.message}`);
       }
+
+      throw err;
     }
   }
 
-  async function createBookmarks() {
+  async function createBookmark(categoryId: number) {
     try {
-      const { data } = await http.post<Bookmark>(API_ROUTES.bookmarks, {
+      const { data } = await http.post<Bookmark>(API_ROUTES.bookmarks(categoryId), {
         name: 'Нова',
         alias: uuidv4(),
       });
@@ -38,10 +41,11 @@ export const useBookmarkStore = defineStore('bookmarks', () => {
     } catch (err) {
       if (err instanceof Error) {
         console.error('Ошибка получения закладок:', err);
-        alert(`Ошибка получения закладок: ${err.message}`);
       }
+
+      throw err;
     }
   }
 
-  return { bookmarks, fetchBookmarks, createBookmarks };
+  return { bookmarks, fetchBookmarks, createBookmark };
 });

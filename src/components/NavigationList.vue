@@ -4,16 +4,24 @@
   import ButtonDefault from '@/libs/components/ButtonDefault.vue';
   import IconAdd from '@/libs/icons/IconAdd.vue';
   import { useCategoryStore } from '@/stores/categories.store';
+  import { useNotificationsStore } from '@/stores/notifications.store';
 
   const store = useCategoryStore();
+  const notification = useNotificationsStore();
 
   onMounted(async () => {
-    await store.fetchCategories();
+    try {
+      await store.fetchCategories();
+    } catch (error) {
+      if (error instanceof Error) {
+        notification.push(error.message);
+      }
+    }
   });
 </script>
 
 <template>
-  <nav class="navigation" v-if="store.categories">
+  <nav class="navigation" v-if="store.categories.length">
     <ul class="navigation-list">
       <li class="navigation-list-item" v-for="cat in store.categories" :key="cat.id">
         <RouterLink

@@ -137,3 +137,10 @@ img {
 a {
   text-decoration: none;
 }
+
+#app {
+  height: 100dvh;
+
+  position: relative;
+  z-index: 2;
+}
