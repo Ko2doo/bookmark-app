@@ -7,7 +7,7 @@
 
 <template>
   <div class="notifications" v-if="store.items.length">
-    <code v-for="n in store.items" :key="n.id" class="notification">
+    <article v-for="n in store.items" :key="n.id" class="notification">
       {{ n.message }}
 
       <ButtonDefault
@@ -19,7 +19,7 @@
       >
         <span>Закрыть</span>
       </ButtonDefault>
-    </code>
+    </article>
   </div>
 </template>
 

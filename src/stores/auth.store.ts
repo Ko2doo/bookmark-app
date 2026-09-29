@@ -30,10 +30,9 @@ export const useAuthStore = defineStore('auth', () => {
 
       if (err instanceof Error) {
         console.error('Ошибка авторизации:', err);
-        throw err;
       }
 
-      throw new Error('Неизвестная ошибка авторизации');
+      throw err;
     }
   }
 
