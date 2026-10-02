@@ -2,7 +2,7 @@ import { ref } from 'vue';
 
 import { defineStore } from 'pinia';
 
-import { API_ROUTES, http } from '@/api.ts';
+import { API_ROUTES, client } from '@/api.ts';
 import type { Profile } from '@/types/profile';
 
 export const useProfileStore = defineStore('profile', () => {
@@ -12,7 +12,7 @@ export const useProfileStore = defineStore('profile', () => {
   // Get data
   async function fetchProfile(): Promise<void> {
     try {
-      const { data, status } = await http.get<Profile>(API_ROUTES.profile);
+      const { data, status } = await client().get<Profile>(API_ROUTES.auth.profile);
 
       if (status !== 200) {
         profile.value = null;

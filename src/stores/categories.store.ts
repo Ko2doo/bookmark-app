@@ -3,7 +3,7 @@ import { ref } from 'vue';
 import { defineStore } from 'pinia';
 import { v4 as uuidv4 } from 'uuid';
 
-import { API_ROUTES, http } from '@/api';
+import { API_ROUTES, client } from '@/api';
 import type { Category } from '@/types/category';
 
 export const useCategoryStore = defineStore('categories', () => {
@@ -11,7 +11,7 @@ export const useCategoryStore = defineStore('categories', () => {
 
   async function fetchCategories() {
     try {
-      const { data, status } = await http.get<Category[]>(API_ROUTES.categories);
+      const { data, status } = await client().get<Category[]>(API_ROUTES.categories);
 
       if (status !== 200) {
         categories.value = [];
@@ -32,7 +32,7 @@ export const useCategoryStore = defineStore('categories', () => {
 
   async function createCategory() {
     try {
-      const { data } = await http.post<Category>(API_ROUTES.categories, {
+      const { data } = await client().post<Category>(API_ROUTES.categories, {
         name: 'Новая категория',
         alias: uuidv4(),
       });
@@ -41,6 +41,36 @@ export const useCategoryStore = defineStore('categories', () => {
     } catch (err) {
       if (err instanceof Error) {
         console.error('Ошибка получения категорий:', err);
+      }
+
+      throw err;
+    }
+  }
+
+  async function updateCategory(id: number, name: string, alias: string) {
+    try {
+      await client().put<Category>(API_ROUTES.update_category(id), {
+        name,
+        alias,
+      });
+
+      await fetchCategories();
+    } catch (err) {
+      if (err instanceof Error) {
+        console.error('Ошибка обновления категории:', err);
+      }
+
+      throw err;
+    }
+  }
+
+  async function deleteCategory(id: number) {
+    try {
+      await client().delete<Category>(API_ROUTES.update_category(id));
+      await fetchCategories();
+    } catch (err) {
+      if (err instanceof Error) {
+        console.error('Ошибка обновления категории:', err);
       }
 
       throw err;
@@ -57,5 +87,12 @@ export const useCategoryStore = defineStore('categories', () => {
     return;
   }
 
-  return { categories, fetchCategories, createCategory, getCategoryByAlias };
+  return {
+    categories,
+    fetchCategories,
+    createCategory,
+    updateCategory,
+    deleteCategory,
+    getCategoryByAlias,
+  };
 });

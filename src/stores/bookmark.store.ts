@@ -3,7 +3,7 @@ import { ref } from 'vue';
 import { defineStore } from 'pinia';
 import { v4 as uuidv4 } from 'uuid';
 
-import { API_ROUTES, http } from '@/api';
+import { API_ROUTES, client } from '@/api';
 import type { Bookmark } from '@/types/bookmark';
 
 export const useBookmarkStore = defineStore('bookmarks', () => {
@@ -11,7 +11,7 @@ export const useBookmarkStore = defineStore('bookmarks', () => {
 
   async function fetchBookmarks(categoryId: number) {
     try {
-      const { data, status } = await http.get<Bookmark[]>(API_ROUTES.bookmarks(categoryId));
+      const { data, status } = await client().get<Bookmark[]>(API_ROUTES.bookmarks(categoryId));
 
       if (status !== 200) {
         bookmarks.value = [];
@@ -32,7 +32,7 @@ export const useBookmarkStore = defineStore('bookmarks', () => {
 
   async function createBookmark(categoryId: number) {
     try {
-      const { data } = await http.post<Bookmark>(API_ROUTES.bookmarks(categoryId), {
+      const { data } = await client().post<Bookmark>(API_ROUTES.bookmarks(categoryId), {
         name: 'Нова',
         alias: uuidv4(),
       });

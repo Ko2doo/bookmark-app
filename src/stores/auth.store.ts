@@ -2,7 +2,7 @@ import { computed, ref } from 'vue';
 
 import { defineStore } from 'pinia';
 
-import { API_ROUTES, AUTH_TOKEN_STORE_KEY, http } from '@/api.ts';
+import { API_ROUTES, AUTH_TOKEN_STORE_KEY, client } from '@/api.ts';
 import { getLocalStorage, removeLocalStorage, setLocalStorage } from '@/helpers/localStorageHelper';
 import type { LoginCredentials, LoginResponse } from '@/types/auth';
 
@@ -30,7 +30,10 @@ export const useAuthStore = defineStore('auth', () => {
   // Login
   async function login(credentials: LoginCredentials): Promise<void> {
     try {
-      const { data, status } = await http.post<LoginResponse>(API_ROUTES.auth.login, credentials);
+      const { data, status } = await client().post<LoginResponse>(
+        API_ROUTES.auth.login,
+        credentials,
+      );
 
       if (status === 401) {
         token.value = undefined;
