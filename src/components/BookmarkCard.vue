@@ -1,32 +1,53 @@
+<!-- eslint-disable vue/prop-name-casing -->
 <script lang="ts" setup>
   import ButtonDefault from '@/libs/components/ButtonDefault.vue';
   import IconLink from '@/libs/icons/IconLink.vue';
   import IconRemove from '@/libs/icons/IconRemove.vue';
+  import { useBookmarkStore } from '@/stores/bookmark.store';
+  import { useNotificationsStore } from '@/stores/notifications.store';
+  import type { Bookmark } from '@/types/bookmark';
 
-  type BookmarkCardProps = {
-    preview: string;
-    description: string;
-  };
+  const { id, category_id, url, image, title } = defineProps<Bookmark>();
 
-  const { preview, description } = defineProps<BookmarkCardProps>();
+  const bookmarkStore = useBookmarkStore();
+  const notification = useNotificationsStore();
+
+  function copyToClipboard(text: string): Promise<void> {
+    return navigator.clipboard
+      .writeText(text)
+      .then(() => {
+        notification.push('Ссылка скопирована в буфер обмена');
+      })
+      .catch((err: unknown) => {
+        if (err instanceof Error) {
+          notification.push(`Ошибка при копировании в буфер обмена: ${err.message}`);
+        }
+      });
+  }
 </script>
 
 <template>
   <article class="bookmark-card">
-    <figure class="figure">
-      <img :src="preview" :alt="description" class="preview" />
+    <a :href="url" target="_blank" class="bookmark-link">
+      <figure class="figure">
+        <img :src="image" :alt="title" class="preview" />
 
-      <figcaption class="figcaption">
-        <p>{{ description }}</p>
-      </figcaption>
-    </figure>
+        <figcaption class="figcaption">
+          <p>{{ title }}</p>
+        </figcaption>
+      </figure>
+    </a>
 
     <div class="interactive-zone">
-      <ButtonDefault :name-attr="'remove'" :title="'Удалить'">
+      <ButtonDefault
+        :name-attr="'remove'"
+        :title="'Удалить'"
+        @click="bookmarkStore.deleteBookmark(id, category_id)"
+      >
         <IconRemove size="24px" />
       </ButtonDefault>
 
-      <ButtonDefault :name-attr="'share'" :title="'Поделиться'">
+      <ButtonDefault :name-attr="'share'" :title="'Поделиться'" @click="copyToClipboard(url)">
         <IconLink size="24px" />
       </ButtonDefault>
     </div>
@@ -46,6 +67,10 @@
 
     border-radius: var(--border-radius-xl);
     background-color: var(--primary-color);
+    color: var(--secondary-color);
+  }
+
+  .bookmark-link {
     color: var(--secondary-color);
   }
 

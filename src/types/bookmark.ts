@@ -3,6 +3,6 @@ export type Bookmark = {
   category_id: number;
   url: string;
   title: string;
-  created_at: Date;
+  created_at: string; // default Date
   image: string;
 };

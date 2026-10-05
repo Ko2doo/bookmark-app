@@ -31,7 +31,7 @@
 </script>
 
 <template>
-  <nav class="navigation" v-if="store.categories.length">
+  <nav class="navigation">
     <ul class="navigation-list">
       <li class="navigation-list-item" v-for="cat in store.categories" :key="cat.id">
         <RouterLink
