@@ -28,17 +28,15 @@
 
 <template>
   <article class="bookmark-card">
-    <a :href="url" target="_blank" class="bookmark-link">
-      <figure class="figure">
+    <a :href="url" target="_blank" rel="noopener noreferrer" class="bookmark-link">
+      <div class="bookmark-content">
         <img :src="image" :alt="title" class="preview" />
 
-        <figcaption class="figcaption">
-          <p>{{ title }}</p>
-        </figcaption>
-      </figure>
+        <h6 class="title">{{ title }}</h6>
+      </div>
     </a>
 
-    <div class="interactive-zone">
+    <div class="bookmark-footer">
       <ButtonDefault
         :name-attr="'remove'"
         :title="'Удалить'"
@@ -74,7 +72,7 @@
     color: var(--secondary-color);
   }
 
-  .figure {
+  .bookmark-content {
     display: flex;
     flex-direction: column;
 
@@ -84,16 +82,15 @@
   .preview {
     flex: 0 0 auto;
     width: 100%;
-    height: 162px;
+    height: rem(162);
 
     object-fit: cover;
     object-position: center;
 
-    overflow: hidden;
     border-radius: var(--border-radius-l);
   }
 
-  .figcaption {
+  .title {
     font-size: var(--fsize-m);
     font-weight: var(--fweight-medium);
     line-height: normal;
@@ -103,7 +100,7 @@
     text-align: left;
   }
 
-  .interactive-zone {
+  .bookmark-footer {
     display: flex;
     flex-wrap: wrap;
 

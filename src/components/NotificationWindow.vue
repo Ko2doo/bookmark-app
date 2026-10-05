@@ -62,21 +62,9 @@
     }
 
     @media (min-width: rem(640)) {
-      width: calc(100% / 2);
+      width: rem(430);
       justify-self: flex-end;
       right: rem(22);
-    }
-
-    @media (min-width: rem(760)) {
-      width: 50%;
-    }
-
-    @media (min-width: rem(920)) {
-      width: 46.4444%;
-    }
-
-    @media (min-width: rem(1200)) {
-      width: calc(100% / 4);
     }
   }
 

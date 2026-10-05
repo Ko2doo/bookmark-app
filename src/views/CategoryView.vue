@@ -88,12 +88,16 @@
 
     margin-bottom: var(--cards-offset);
 
-    @media (min-width: rem(1200)) {
-      @include size(2, 3);
+    @media (min-width: rem(560)) {
+      @include size(2, 2);
 
       & {
         margin-bottom: 0;
       }
+    }
+
+    @media (min-width: rem(920)) {
+      @include size(2, 3);
     }
   }
 </style>
