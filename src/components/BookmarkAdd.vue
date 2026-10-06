@@ -5,6 +5,7 @@
   import ButtonDefault from '@/libs/components/ButtonDefault.vue';
   import InputDefault from '@/libs/components/InputDefault.vue';
   import IconAdd from '@/libs/icons/IconAdd.vue';
+  import IconClose from '@/libs/icons/IconClose.vue';
   import IconConfirm from '@/libs/icons/IconConfirm.vue';
   import { useBookmarkStore } from '@/stores/bookmark.store';
   import { useNotificationsStore } from '@/stores/notifications.store';
@@ -36,6 +37,10 @@
       }
     }
   }
+
+  function closeFormAction() {
+    isEdited.value = false;
+  }
 </script>
 
 <template>
@@ -52,6 +57,7 @@
     <form v-else class="form-action" @submit="onFormAction">
       <InputDefault
         v-model="bookmarkNewUrl"
+        is-focused
         class="form-input"
         placeholder="Введите ссылку"
         id="write-new-bookmark"
@@ -61,11 +67,21 @@
       />
 
       <ButtonDefault
+        class="btn-action"
         type="submit"
         :name-attr="'confirm-form-action'"
         :title="'Нажмите чтобы подтвердить'"
       >
-        <IconConfirm :size="'24px'" />
+        <IconConfirm :size="'var(--icon-size)'" />
+      </ButtonDefault>
+
+      <ButtonDefault
+        class="btn-action"
+        :name-attr="'decline-form-action'"
+        :title="'Нажмите чтобы отменить действие'"
+        @click="closeFormAction"
+      >
+        <IconClose :size="'var(--icon-size)'" />
       </ButtonDefault>
     </form>
   </article>
@@ -90,6 +106,8 @@
   }
 
   .form-action {
+    --icon-size: #{rem(24)};
+
     width: 100%;
 
     display: flex;
@@ -97,11 +115,21 @@
 
     justify-content: center;
 
-    gap: rem(20);
+    gap: rem(20) rem(8);
 
     @media (min-width: rem(1200)) {
+      --icon-size: #{rem(18)};
+
       justify-content: space-between;
       gap: 0;
+    }
+
+    .btn-action {
+      --default-size: #{rem(48)};
+
+      @media (min-width: rem(1200)) {
+        --default-size: #{rem(32)};
+      }
     }
   }
 
@@ -112,7 +140,8 @@
     font-size: var(--fsize-l);
 
     @media (min-width: rem(1200)) {
-      width: 75%;
+      font-size: var(--fsize-m);
+      width: 70%;
     }
   }
 </style>

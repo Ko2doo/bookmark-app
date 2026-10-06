@@ -67,6 +67,7 @@
       <form class="form-action" v-if="categoryIsEdited" @submit="updateCategory">
         <InputDefault
           v-model="categoryNewName"
+          is-focused
           id="write-new-category"
           name="write-new-category"
           type="text"

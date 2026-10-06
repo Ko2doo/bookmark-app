@@ -89,7 +89,11 @@
       class="bookmark"
     />
 
-    <BookmarkAdd v-if="category" class="bookmark-add" :category_id="category.id" />
+    <BookmarkAdd
+      v-if="category && bookmarkStore.bookmarks.length > 3"
+      class="bookmark-add"
+      :category_id="category.id"
+    />
   </section>
 </template>
 
@@ -127,7 +131,7 @@
     }
 
     @media (min-width: rem(560)) {
-      @include size(2, 2.6666);
+      @include size(1, 2);
 
       & {
         margin-bottom: 0;
@@ -136,6 +140,10 @@
 
     @media (min-width: rem(920)) {
       @include size(2, 3);
+    }
+
+    @media (min-width: rem(1200)) {
+      @include size(2, 3.3333);
     }
   }
 </style>

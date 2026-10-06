@@ -1,5 +1,6 @@
 <script lang="ts" setup>
   import ButtonDefault from '@/libs/components/ButtonDefault.vue';
+  import IconClose from '@/libs/icons/IconClose.vue';
   import { useNotificationsStore } from '@/stores/notifications.store';
 
   const store = useNotificationsStore();
@@ -8,17 +9,16 @@
 <template>
   <div class="notifications" v-if="store.items.length">
     <article v-for="n in store.items" :key="n.id" class="notification">
-      {{ n.message }}
-
       <ButtonDefault
-        :only-icon="false"
         :name-attr="'close-notify'"
         :title="'Закрыть окно'"
         class="btn-close"
         @click="store.remove(n.id)"
       >
-        <span>Закрыть</span>
+        <IconClose :size="'var(--icon-size)'" />
       </ButtonDefault>
+
+      <p>{{ n.message }}</p>
     </article>
   </div>
 </template>
@@ -40,22 +40,13 @@
 
     justify-self: center;
 
-    gap: rem(20);
-    padding: rem(12) rem(22);
+    gap: rem(10);
+    padding: 0 rem(16);
 
     overflow-y: auto;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
 
-    background-color: var(--primary-notify-color);
+    background-color: transparent;
     color: var(--secondary-color);
-
-    border: rem(4) solid var(--primary-color);
-    border-radius: var(--border-radius-l);
-
-    &::-webkit-scrollbar {
-      display: none;
-    }
 
     @media (min-width: rem(420)) {
       width: 80%;
@@ -72,26 +63,22 @@
     display: flex;
     flex-direction: column;
 
+    padding: rem(14);
+
     font-size: var(--fsize-l);
     font-weight: var(--fweight-medium);
     line-height: normal;
 
-    &:has(+ .notification) {
-      border-bottom: rem(2) solid var(--primary-color);
-
-      &:not(:last-child) {
-        padding-bottom: rem(20);
-      }
-    }
+    background-color: var(--primary-color);
+    border-radius: var(--border-radius-l);
   }
 
   .btn-close {
-    --btn-padding: #{rem(6)} #{rem(18)};
-
-    font-size: var(--fsize-m);
+    --icon-size: #{rem(16)};
+    --default-size: #{rem(28)};
 
     flex: 0 1 auto;
     margin-left: auto;
-    margin-top: rem(10);
+    margin-bottom: rem(12);
   }
 </style>
