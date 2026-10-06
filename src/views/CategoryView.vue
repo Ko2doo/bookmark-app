@@ -3,6 +3,7 @@
 
   import { useRoute } from 'vue-router';
 
+  import BookmarkAdd from '@/components/BookmarkAdd.vue';
   import BookmarkCard from '@/components/BookmarkCard.vue';
   import BookmarkSort from '@/components/BookmarkSort.vue';
   import CategoryEditor from '@/components/CategoryEditor.vue';
@@ -18,6 +19,7 @@
   const notification = useNotificationsStore();
 
   // States
+  const scrollContainer = ref<HTMLElement | null>(null);
   const category = ref<Category>();
 
   async function sortBookmarks(sort: string) {
@@ -25,6 +27,23 @@
 
     if (category.value) {
       await bookmarkStore.fetchBookmarks(category.value.id, bookmarkStore.activeSort);
+    }
+  }
+
+  function handleWheel(event: WheelEvent) {
+    if (event.deltaY === 0) return;
+
+    const container = scrollContainer.value;
+    if (!container) return;
+
+    const isScrollingForward = event.deltaY > 0;
+
+    const canScrollRight = container.scrollLeft < container.scrollWidth - container.clientWidth - 1;
+    const canScrollLeft = container.scrollLeft > 1;
+
+    if ((isScrollingForward && canScrollRight) || (!isScrollingForward && canScrollLeft)) {
+      event.preventDefault();
+      container.scrollLeft += event.deltaY;
     }
   }
 
@@ -60,13 +79,17 @@
   <CategoryEditor v-if="category" :category="category" />
   <BookmarkSort :key-id="bookmarkStore.activeSort" @sort="sortBookmarks" />
 
-  <section class="main-bookmarks">
+  <section ref="scrollContainer" class="main-bookmarks" @wheel="handleWheel">
+    <BookmarkAdd v-if="category" class="bookmark-add" :category_id="category.id" />
+
     <BookmarkCard
       v-for="item in bookmarkStore.bookmarks"
       :key="item.id"
       v-bind="item"
       class="bookmark"
     />
+
+    <BookmarkAdd v-if="category" class="bookmark-add" :category_id="category.id" />
   </section>
 </template>
 
@@ -78,18 +101,33 @@
     width: 100%;
 
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+
+    scroll-behavior: auto;
+    scrollbar-width: none;
+
+    overflow-x: scroll;
 
     padding-top: clamp(rem(34), 4vw, #{rem(68)});
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 
-  .bookmark {
-    width: 100%;
+  .bookmark,
+  .bookmark-add {
+    @include size(2, 2);
 
-    margin-bottom: var(--cards-offset);
+    & {
+      flex-shrink: 0;
+      width: 80%;
+
+      margin-bottom: var(--cards-offset);
+    }
 
     @media (min-width: rem(560)) {
-      @include size(2, 2);
+      @include size(2, 2.6666);
 
       & {
         margin-bottom: 0;

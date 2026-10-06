@@ -105,5 +105,7 @@
     flex-wrap: wrap;
 
     justify-content: space-between;
+
+    margin-top: auto;
   }
 </style>

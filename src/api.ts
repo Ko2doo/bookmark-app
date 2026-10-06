@@ -10,6 +10,7 @@ export const API_ROUTES = {
   update_category: (id: number) => `categories/${id}`,
   bookmarks: {
     get: (id: number) => `categories/${id}/bookmarks`,
+    create: `bookmarks`,
     delete: (id: number) => `bookmarks/${id}`,
   },
   auth: {

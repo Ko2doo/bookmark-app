@@ -2,8 +2,6 @@ import { ref } from 'vue';
 
 import { defineStore } from 'pinia';
 
-// import { v4 as uuidv4 } from 'uuid';
-
 import { API_ROUTES, client } from '@/api';
 import type { Bookmark } from '@/types/bookmark';
 
@@ -39,26 +37,27 @@ export const useBookmarkStore = defineStore('bookmarks', () => {
     }
   }
 
-  // async function createBookmark(categoryId: number) {
-  //   try {
-  //     const { data } = await client().post<Bookmark>(API_ROUTES.bookmarks(categoryId), {
-  //       name: 'Нова',
-  //       alias: uuidv4(),
-  //     });
+  async function addBookmark(url: string, category_id: number) {
+    try {
+      const { data } = await client().post<Bookmark>(API_ROUTES.bookmarks.create, {
+        url,
+        category_id,
+      });
 
-  //     bookmarks.value.push(data);
-  //   } catch (err) {
-  //     if (err instanceof Error) {
-  //       console.error('Ошибка получения закладок:', err);
-  //     }
+      bookmarks.value.push(data);
+      await fetchBookmarks(category_id, activeSort.value);
+    } catch (err) {
+      if (err instanceof Error) {
+        console.error('Ошибка создания закладки:', err);
+      }
 
-  //     throw err;
-  //   }
-  // }
+      throw err;
+    }
+  }
 
   async function deleteBookmark(id: number, categoryId: number) {
     try {
-      await client().delete<Bookmark>(API_ROUTES.bookmarks.delete(id));
+      await client().delete<Bookmark[]>(API_ROUTES.bookmarks.delete(id));
       await fetchBookmarks(categoryId, activeSort.value);
     } catch (err) {
       if (err instanceof Error) {
@@ -69,5 +68,5 @@ export const useBookmarkStore = defineStore('bookmarks', () => {
     }
   }
 
-  return { bookmarks, fetchBookmarks, deleteBookmark, activeSort };
+  return { bookmarks, fetchBookmarks, addBookmark, deleteBookmark, activeSort };
 });

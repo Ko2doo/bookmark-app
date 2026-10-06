@@ -35,7 +35,7 @@
     width: 100%;
 
     @media (min-width: rem(1200)) {
-      @include make-size(4);
+      @include make-size(3);
     }
   }
 
@@ -43,7 +43,7 @@
     width: 100%;
 
     @media (min-width: rem(1200)) {
-      @include make-size(8);
+      @include make-size(9);
     }
   }
 </style>
