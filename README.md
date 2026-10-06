@@ -2,7 +2,7 @@
 
 Менеджер закладок на **Vue 3 + Pinia + Vue Router**. Финальный проект курса по Vue 3: клиентская часть общается с REST API (Go-бинарник из курса), хранит токен авторизации и показывает ошибки через собственную систему уведомлений.
 
-<video src="https://github.com/Ko2doo/bookmark-app/.preview/preview.webm" width="100%" controls></video>
+<video src="https://github.com/user-attachments/assets/c8942a47-822d-489e-9e77-5f9e006c186f" width="100%" controls></video>
 
 > Название репозитория — `bookmark-app`, в интерфейсе приложение называется **Bookmarkly**.
 
