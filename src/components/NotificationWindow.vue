@@ -7,19 +7,21 @@
 </script>
 
 <template>
-  <div class="notifications" v-if="store.items.length">
-    <article v-for="n in store.items" :key="n.id" class="notification">
-      <ButtonDefault
-        :name-attr="'close-notify'"
-        :title="'Закрыть окно'"
-        class="btn-close"
-        @click="store.remove(n.id)"
-      >
-        <IconClose :size="'var(--icon-size)'" />
-      </ButtonDefault>
+  <div class="notifications" v-show="store.items.length">
+    <TransitionGroup name="notify">
+      <article v-for="n in store.items" :key="n.id" class="notification">
+        <ButtonDefault
+          :name-attr="'close-notify'"
+          :title="'Закрыть окно'"
+          class="btn-close"
+          @click="store.remove(n.id)"
+        >
+          <IconClose :size="'var(--icon-size)'" />
+        </ButtonDefault>
 
-      <p>{{ n.message }}</p>
-    </article>
+        <p>{{ n.message }}</p>
+      </article>
+    </TransitionGroup>
   </div>
 </template>
 
@@ -44,6 +46,7 @@
     padding: 0 rem(16);
 
     overflow-y: auto;
+    overflow-x: hidden;
 
     background-color: transparent;
     color: var(--secondary-color);
@@ -80,5 +83,35 @@
     flex: 0 1 auto;
     margin-left: auto;
     margin-bottom: rem(12);
+  }
+
+  .notify-enter-active {
+    animation: slide-right 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  }
+
+  @keyframes slide-right {
+    0% {
+      transform: translateX(-50px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  .notify-leave-active {
+    animation: slide-out 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  }
+
+  @keyframes slide-out {
+    0% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    100% {
+      transform: translateX(50px);
+      opacity: 0;
+    }
   }
 </style>

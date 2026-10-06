@@ -1,5 +1,7 @@
 <!-- eslint-disable vue/prop-name-casing -->
 <script lang="ts" setup>
+  import { ref } from 'vue';
+
   import ButtonDefault from '@/libs/components/ButtonDefault.vue';
   import IconLink from '@/libs/icons/IconLink.vue';
   import IconRemove from '@/libs/icons/IconRemove.vue';
@@ -7,10 +9,14 @@
   import { useNotificationsStore } from '@/stores/notifications.store';
   import type { Bookmark } from '@/types/bookmark';
 
+  import PopupConfirm from './PopupConfirm.vue';
+
   const { id, category_id, url, image, title } = defineProps<Bookmark>();
 
   const bookmarkStore = useBookmarkStore();
   const notification = useNotificationsStore();
+
+  const isOpened = ref<boolean>(false);
 
   function copyToClipboard(text: string): Promise<void> {
     return navigator.clipboard
@@ -23,6 +29,18 @@
           notification.push(`Ошибка при копировании в буфер обмена: ${err.message}`);
         }
       });
+  }
+
+  async function deleteBookmark() {
+    isOpened.value = !isOpened.value;
+
+    try {
+      await bookmarkStore.deleteBookmark(id, category_id);
+    } catch (error) {
+      if (error instanceof Error) {
+        notification.push(error.message);
+      }
+    }
   }
 </script>
 
@@ -37,11 +55,7 @@
     </a>
 
     <div class="bookmark-footer">
-      <ButtonDefault
-        :name-attr="'remove'"
-        :title="'Удалить'"
-        @click="bookmarkStore.deleteBookmark(id, category_id)"
-      >
+      <ButtonDefault :name-attr="'remove'" :title="'Удалить'" @click="isOpened = !isOpened">
         <IconRemove size="24px" />
       </ButtonDefault>
 
@@ -49,6 +63,13 @@
         <IconLink size="24px" />
       </ButtonDefault>
     </div>
+
+    <PopupConfirm
+      text="Вы действительно хотите удалить закладку?"
+      :is-opened="isOpened"
+      @ok="deleteBookmark"
+      @cancel="isOpened = !isOpened"
+    />
   </article>
 </template>
 

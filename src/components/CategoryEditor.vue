@@ -12,6 +12,8 @@
   import { useNotificationsStore } from '@/stores/notifications.store';
   import type { Category } from '@/types/category';
 
+  import PopupConfirm from './PopupConfirm.vue';
+
   const { category } = defineProps<{ category: Category }>();
 
   const router = useRouter();
@@ -21,6 +23,7 @@
   // States
   const categoryNewName = ref<string>();
   const categoryIsEdited = ref<boolean>(false);
+  const isOpened = ref<boolean>(false);
 
   function toggleCategoryEditor() {
     if (!categoryIsEdited.value) {
@@ -46,6 +49,8 @@
   }
 
   async function deleteCategory() {
+    isOpened.value = !isOpened.value;
+
     try {
       await categoryStore.deleteCategory(category.id);
       await router.push({ name: 'main' });
@@ -84,7 +89,7 @@
       <ButtonDefault
         :title="'Удалить категорию'"
         :name-attr="'delete-category'"
-        @click="deleteCategory"
+        @click="isOpened = !isOpened"
       >
         <IconMoveToTrash :size="'18px'" />
       </ButtonDefault>
@@ -98,6 +103,13 @@
       </ButtonDefault>
     </div>
   </header>
+
+  <PopupConfirm
+    text="Вы действительно хотите удалить категорию?"
+    :is-opened="isOpened"
+    @ok="deleteCategory"
+    @cancel="isOpened = !isOpened"
+  />
 </template>
 
 <style lang="scss" scoped>

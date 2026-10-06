@@ -35,9 +35,9 @@ export default defineConfig({
       '@assets': fileURLToPath(new URL('./src/assets', import.meta.url)),
       '@styles': fileURLToPath(new URL('./src/assets/styles', import.meta.url)),
       '@components': fileURLToPath(new URL('./src/components', import.meta.url)),
-      '@lib': fileURLToPath(new URL('./src/lib', import.meta.url)),
+      '@libs': fileURLToPath(new URL('./src/libs', import.meta.url)),
       '@utils': fileURLToPath(new URL('./src/utils', import.meta.url)),
-      '@interfaces': fileURLToPath(new URL('./src/interfaces', import.meta.url)),
+      '@types': fileURLToPath(new URL('./src/types', import.meta.url)),
     },
   },
 });

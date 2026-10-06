@@ -40,7 +40,7 @@ export const useCategoryStore = defineStore('categories', () => {
       categories.value.push(data);
     } catch (err) {
       if (err instanceof Error) {
-        console.error('Ошибка получения категорий:', err);
+        console.error('Ошибка создания категорий:', err);
       }
 
       throw err;
@@ -70,7 +70,7 @@ export const useCategoryStore = defineStore('categories', () => {
       await fetchCategories();
     } catch (err) {
       if (err instanceof Error) {
-        console.error('Ошибка обновления категории:', err);
+        console.error('Ошибка удаления категории:', err);
       }
 
       throw err;
