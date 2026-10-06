@@ -2,6 +2,8 @@
 
 A bookmark manager built with **Vue 3, Pinia and Vue Router**. This is the final project of a Vue 3 course: the client talks to a REST API (a Go binary provided by the course), persists the auth token, and surfaces errors through a custom notification system.
 
+<video src="./.preview/preview.webm" width="100%" controls></video>
+
 > The repository is called `bookmark-app`; in the UI the app is branded **Bookmarkly**.
 
 🇷🇺 [Читать на русском](./README.md)
